@@ -23,7 +23,6 @@ class DataIngestion():
             df = pd.read_csv('notebook\creditcard.csv')
             logging.info("Read the data")
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
-
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
             logging.info("train_test_split initiated")
             train_set,test_set = train_test_split(df,test_size=0.2,random_state=42)
@@ -47,4 +46,5 @@ if __name__ == '__main__':
     data_transformation = DataTransformation()
     train_arr,test_arr = data_transformation.initiate_data_transformation(train_path,test_path)
     model_trainer = ModelTrainer()
-    print(model_trainer.initiate_model_trainer(train_arr=train_arr,test_arr=test_arr))
+    acc,best_model_name,model_report = model_trainer.initiate_model_trainer(train_arr=train_arr,test_arr=test_arr)
+    print(acc,best_model_name,model_report)
