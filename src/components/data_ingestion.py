@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation, DataTransformationConfig
 from src.components.model_trainer import ModelTrainer, ModelTrainerConfig
+from src.components.data_visualization import DataVisualization
 
 @dataclass
 class DataIngestionConfig():
@@ -47,4 +48,5 @@ if __name__ == '__main__':
     train_arr,test_arr = data_transformation.initiate_data_transformation(train_path,test_path)
     model_trainer = ModelTrainer()
     acc,best_model_name,model_report = model_trainer.initiate_model_trainer(train_arr=train_arr,test_arr=test_arr)
-    print(acc,best_model_name,model_report)
+    data_visualization = DataVisualization()
+    print(data_visualization.initiate_data_visualization(model_report))

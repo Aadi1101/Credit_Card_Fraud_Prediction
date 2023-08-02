@@ -1,4 +1,5 @@
-import sys,os,time
+import sys,os,time,io
+from PIL import Image
 from src.logger import logging
 from src.exception import CustomException
 import dill, json
@@ -53,3 +54,16 @@ def save_json_object(file_path,obj):
     except Exception as e:
         raise CustomException(e,sys)
 
+def json_file(file_path):
+    try:
+        model_report:dict = json.load(open(file_path,'r'))
+        return model_report
+    except Exception as e:
+        raise CustomException(e,sys)
+
+def fig2img(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf)
+    buf.seek(0)
+    img = Image.open(buf)
+    return img 
